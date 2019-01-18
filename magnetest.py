@@ -34,13 +34,8 @@ x_change = 0
 
 def NSMagnet(x,y):
     gameDisplay.blit(magnetNS, (x,y))
-
-# if magnet_random == 0: 
-#     magnet_current = magnetNS
-# else: 
-#     magnet_current = magnetSN
     
-class fallingMagnet(pg.sprite.Sprite):
+class fallingMagnet():
     def __init__(self, a, b, orientation, fall, stackheight_individual):
         self.a = a
         self.b = b
@@ -56,7 +51,6 @@ class fallingMagnet(pg.sprite.Sprite):
     def reset_pos(self):
         self.b = 0
         self.a = random.randint(10,750)
-        # self.orientation = magnet_current
 
         if random.randint(0,2) == 1:
             self.orientation = magnetSN
@@ -66,7 +60,6 @@ class fallingMagnet(pg.sprite.Sprite):
     def fallConnect (self):
         if self.fall == False: 
             self.a = x
-            # self.reset_pos()
         else: 
             self.b += 2
             if self.b > 800:
@@ -74,12 +67,9 @@ class fallingMagnet(pg.sprite.Sprite):
 
             if self.b == (y-102*stackheight) and self.a >= (x-20) and self.a <= (x+20) and self.orientation == magnetNS:
                 self.a = x
-                # self.reset_pos()
                 self.fall = False
     
     def setStackheight (self):
-        # global stackheight
-        # self.stackheight_individual = stackheight + 1
 
         if self.b <= y+102*5:
             self.stackheight_individual = 5
@@ -119,19 +109,13 @@ while run:
             magnetList[i].setStackheight
             stackheight += 1
 
-        if magnetList[-1].fall == True and magnetList[-1].a >= (x-20) and magnetList[-1].a <= (x+20):
-            # if i == 0: 
-            #     if magnetList[-1].stackheight_individual == y: 
-            #         pygame.quit()
-            #         exit()
-
-            if magnetList[-1] != magnetList[i]:
-                if magnetList[-1].stackheight_individual == magnetList[i].stackheight_individual:
-                    magnetList[i].kill()
-
-            
-            # and magnetList[-1].stackheight_individual == magnetList[i].stackheight_individual
-           
+        if magnetList[-1].fall == True and magnetList[-1].a >= (x-20) and magnetList[-1].a <= (x+20) and magnetList[-1] != magnetList[i] and magnetList[-1].stackheight_individual == magnetList[i].stackheight_individual:
+                # if magnetList[-1].stackheight_individual == magnetList[i].stackheight_individual:
+                for j in range(len(magnetList)):
+                    if magnetList[-1].stackheight_individual <= magnetList[i].stackheight_individual:
+                        magnetList.pop(i)
+                        stackheight -= 1
+                break
 
     for event in pygame.event.get():
         if event.type == pygame.USEREVENT: 
@@ -139,11 +123,7 @@ while run:
             text = str(counter).rjust(3) if counter > 0 else "sorry, you lose"
             if counter < -1:
                 run = False
-                
-            #if counter < -3:
-                #run = False
-        if event.type == pygame.QUIT: break
-        
+                        
     else:
         gameDisplay.blit(font.render(text, True, (0, 0, 0)), (32, 48))
         pygame.display.flip()
