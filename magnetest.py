@@ -1,14 +1,8 @@
 '''To Do Problems'''
-# randomize magnet orientation
 # fix endgame for when touches top of screen (done, but may want to include some sort of victory message)
-# make it fall by certain amount of time
-#next magnet wont fall unless they connect 
 #clock
 
-
 import pygame
-import pygame as pg
-import os
 import random
 import time
 
@@ -70,7 +64,6 @@ class fallingMagnet():
                 self.fall = False
     
     def setStackheight (self):
-
         if self.b <= y+102*5:
             self.stackheight_individual = 5
         if self.b >= y-102*4:
@@ -84,14 +77,24 @@ class fallingMagnet():
         if self.b >= y-102*0:
             self.stackheight_individual = 0
 
+def regenMagnet():
+    global stackheight
+    
+    if random.randint(0,2) == 1:
+            orientation = magnetSN
+    else:
+        orientation = magnetNS
+    magnetList.append(fallingMagnet(random.randint(10,750), 0, orientation, True, 0))
+    magnetList[i].setStackheight
+    stackheight += 1
+
 magnetList=[]
 magnetList.append(fallingMagnet(random.randint(10,750), 0, magnetNS, True, 0))
 magnetList[len(magnetList)-1].drawChar()
+runCount = 0
 
 while run:
-
     key = pygame.key.get_pressed()
-
     gameDisplay.fill(white)
     NSMagnet(x,y)
 
@@ -100,22 +103,25 @@ while run:
         magnetList[i].fallConnect()
         magnetList[i].setStackheight()
 
-        if magnetList[i].fall == False and len(magnetList)-1 == i:
-            if random.randint(0,2) == 1:
-                orientation = magnetSN
-            else:
-                orientation = magnetNS
-            magnetList.append(fallingMagnet(random.randint(10,750), 0, orientation, True, 0))
-            magnetList[i].setStackheight
-            stackheight += 1
+        if (magnetList[i].fall == False and len(magnetList)-1 == i):
+            regenMagnet()
 
         if magnetList[-1].fall == True and magnetList[-1].a >= (x-20) and magnetList[-1].a <= (x+20) and magnetList[-1] != magnetList[i] and magnetList[-1].stackheight_individual == magnetList[i].stackheight_individual:
-                # if magnetList[-1].stackheight_individual == magnetList[i].stackheight_individual:
-                for j in range(len(magnetList)):
-                    if magnetList[-1].stackheight_individual <= magnetList[i].stackheight_individual:
-                        magnetList.pop(i)
-                        stackheight -= 1
-                break
+            toDelete = []
+
+            for j in range(len(magnetList)):
+                if magnetList[-1].stackheight_individual <= magnetList[j].stackheight_individual:
+                    toDelete.append(j)
+                    stackheight -= 1
+
+            for k in range(len(toDelete)):
+                # print(toDelete[k-1])
+                # magnetList.pop(toDelete[::k+1]) 
+
+                magnetList.pop(toDelete[k-1]) 
+
+            regenMagnet()
+            break
 
     for event in pygame.event.get():
         if event.type == pygame.USEREVENT: 
