@@ -114,7 +114,7 @@ while run:
                     toDelete.append(j)
                     stackheight -= 1
 
-            for k in range(len(toDelete)):
+            for k in range(len(toDelete),0,-1):
                 # print(toDelete[k-1])
                 # magnetList.pop(toDelete[::k+1]) 
 
