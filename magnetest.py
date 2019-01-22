@@ -1,7 +1,3 @@
-'''To Do Problems'''
-# fix endgame for when touches top of screen (done, but may want to include some sort of victory message)
-#clock
-
 import pygame
 import random
 import time
@@ -45,7 +41,6 @@ class fallingMagnet():
     def reset_pos(self):
         self.b = 0
         self.a = random.randint(10,750)
-
         if random.randint(0,2) == 1:
             self.orientation = magnetSN
         else:
@@ -115,11 +110,7 @@ while run:
                     stackheight -= 1
 
             for k in range(len(toDelete),0,-1):
-                # print(toDelete[k-1])
-                # magnetList.pop(toDelete[::k+1]) 
-
                 magnetList.pop(toDelete[k-1]) 
-
             regenMagnet()
             break
 
@@ -158,7 +149,6 @@ while run:
 
         pygame.time.delay(1000)
         run = False
-            ################
         
 pygame.quit()
 exit()
