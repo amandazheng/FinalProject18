@@ -22,7 +22,7 @@ magnetNS = pygame.image.load("NSMagnet.png")
 magnetSN = pygame.image.load("SNMagnet.png")
 homePic = pygame.image.load("MagneTrisHome.png")
 homePic = pygame.transform.scale(homePic, (800, 800))
-lostPic = pygame.image.load("MagneTrisLost.png")
+lostPic = pygame.image.load("MagneTrisGameOver.png")
 lostPic = pygame.transform.scale(lostPic, (800, 800))
 wonPic = pygame.image.load("MagneTrisWon.png")
 wonPic = pygame.transform.scale(wonPic, (800, 800))
@@ -215,7 +215,7 @@ while run:
         if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
             x_change = 0
     
-    #congradulates and exits the game when the player has stacked the magnets to the top of the screen 
+    #congratulates and exits the game when the player has stacked the magnets to the top of the screen 
     if stackheight == 5:
 
         while finishGame == False:
@@ -227,7 +227,10 @@ while run:
             for event in pygame.event.get():
                 if pygame.key.get_pressed()[pygame.K_SPACE]:
                     finishGame = True
-        run = False
+                    run = False
+                if event.type == pygame.QUIT:
+                    finishGame ==True
+                    run = False
 
 #quits the game when done      
 pygame.quit()
