@@ -120,6 +120,7 @@ runCount = 0
 startGame = False
 finishGame = False
 
+
 #Displays homescreen
 while startGame == False:
     #prints homescreen
@@ -171,8 +172,9 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.USEREVENT: 
             counter -= 1
-            text = str(counter).rjust(3) if counter > 0 else "sorry, you lose"
-            if counter < -1:
+            if counter > 0: 
+                text = str(counter).rjust(3) 
+            else:
                 while finishGame == False:
                     #prints lose screen
                     gameDisplay.blit(lostPic, (0,0))
@@ -181,7 +183,7 @@ while run:
                     #breaks the loop if the space bar is pressed
                     for event in pygame.event.get():
                         if pygame.key.get_pressed()[pygame.K_SPACE]:
-                            startGame = True
+                            finishGame = True
 
                 run = False
 
@@ -215,9 +217,6 @@ while run:
     
     #congradulates and exits the game when the player has stacked the magnets to the top of the screen 
     if stackheight == 5:
-        # text = "Congrats! You won!"
-        
-        # gameDisplay.blit(font.render(text, True, (0, 0, 0)), (32, 48))
 
         while finishGame == False:
             #prints win screen
@@ -227,9 +226,7 @@ while run:
             #breaks the loop if the space bar is pressed
             for event in pygame.event.get():
                 if pygame.key.get_pressed()[pygame.K_SPACE]:
-                    startGame = True
-
-        # pygame.time.delay(1000)
+                    finishGame = True
         run = False
 
 #quits the game when done      
