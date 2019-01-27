@@ -20,6 +20,12 @@ clock = pygame.time.Clock()
 #To load the magnet images
 magnetNS = pygame.image.load("NSMagnet.png")
 magnetSN = pygame.image.load("SNMagnet.png")
+homePic = pygame.image.load("MagneTrisHome.png")
+homePic = pygame.transform.scale(homePic, (800, 800))
+lostPic = pygame.image.load("MagneTrisLost.png")
+lostPic = pygame.transform.scale(lostPic, (800, 800))
+wonPic = pygame.image.load("MagneTrisWon.png")
+wonPic = pygame.transform.scale(wonPic, (800, 800))
 
 #Sets starting position for movingMagnet
 x = 360
@@ -43,6 +49,7 @@ class fallingMagnet():
         self.fall = fall
         self.stackheight_individual = stackheight_individual
         self.drawChar()
+        self.reset_pos()
         self.fallConnect()
 
     def drawChar (self):
@@ -96,7 +103,7 @@ def regenMagnet():
 
     #randomizes orientation of magnet 
     if random.randint(0,2) == 1:
-            orientation = magnetSN
+        orientation = magnetSN
     else:
         orientation = magnetNS
     
@@ -110,11 +117,24 @@ magnetList=[]
 magnetList.append(fallingMagnet(random.randint(10,750), 0, magnetNS, True, 0))
 magnetList[len(magnetList)-1].drawChar()
 runCount = 0
+startGame = False
+finishGame = False
+
+#Displays homescreen
+while startGame == False:
+    #prints homescreen
+    gameDisplay.blit(homePic, (0,0))
+    pygame.display.update()
+
+    #breaks the loop if the space bar is pressed
+    for event in pygame.event.get():
+        if pygame.key.get_pressed()[pygame.K_SPACE]:
+            startGame = True
 
 #begins game loop
 while run:
     #to be done every loop (check for key press, display background, update movingMagent)
-    key = pygame.key.get_pressed()
+    key = pygame.key.get_pressed()  
     gameDisplay.fill(white)
     movingMagnet(x,y)
 
@@ -153,6 +173,16 @@ while run:
             counter -= 1
             text = str(counter).rjust(3) if counter > 0 else "sorry, you lose"
             if counter < -1:
+                while finishGame == False:
+                    #prints lose screen
+                    gameDisplay.blit(lostPic, (0,0))
+                    pygame.display.update()
+
+                    #breaks the loop if the space bar is pressed
+                    for event in pygame.event.get():
+                        if pygame.key.get_pressed()[pygame.K_SPACE]:
+                            startGame = True
+
                 run = False
 
     #updates the display of the clock                  
@@ -185,11 +215,21 @@ while run:
     
     #congradulates and exits the game when the player has stacked the magnets to the top of the screen 
     if stackheight == 5:
-        text = "Congrats! You won!"
+        # text = "Congrats! You won!"
         
-        gameDisplay.blit(font.render(text, True, (0, 0, 0)), (32, 48))
+        # gameDisplay.blit(font.render(text, True, (0, 0, 0)), (32, 48))
 
-        pygame.time.delay(1000)
+        while finishGame == False:
+            #prints win screen
+            gameDisplay.blit(wonPic, (0,0))
+            pygame.display.update()
+
+            #breaks the loop if the space bar is pressed
+            for event in pygame.event.get():
+                if pygame.key.get_pressed()[pygame.K_SPACE]:
+                    startGame = True
+
+        # pygame.time.delay(1000)
         run = False
 
 #quits the game when done      
