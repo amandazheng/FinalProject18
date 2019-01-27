@@ -131,6 +131,7 @@ while startGame == False:
     for event in pygame.event.get():
         if pygame.key.get_pressed()[pygame.K_SPACE]:
             startGame = True
+         
 
 #begins game loop
 while run:
@@ -184,6 +185,10 @@ while run:
                     for event in pygame.event.get():
                         if pygame.key.get_pressed()[pygame.K_SPACE]:
                             finishGame = True
+                        if event.type == pygame.QUIT:
+                            finishGame = True    
+
+                    
 
                 run = False
 
@@ -196,6 +201,7 @@ while run:
     #quits pygame when necessary 
     if event.type == pygame.QUIT:
         run = False
+        finishGame = True
 
     #moves base magnet to the left when left arrow is pressed
     if key[pygame.K_LEFT]:
@@ -229,8 +235,7 @@ while run:
                     finishGame = True
                     run = False
                 if event.type == pygame.QUIT:
-                    finishGame ==True
-                    run = False
+                    finishGame = True
 
 #quits the game when done      
 pygame.quit()
