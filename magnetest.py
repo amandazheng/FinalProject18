@@ -17,7 +17,7 @@ font = pygame.font.SysFont('Helvetica', 30)
 counter, text = 50, '50'.rjust(3) 
 clock = pygame.time.Clock()
 
-#To load the magnet images
+#To load the magnet images and home/end screens
 magnetNS = pygame.image.load("NSMagnet.png")
 magnetSN = pygame.image.load("SNMagnet.png")
 homePic = pygame.image.load("MagneTrisHome.png")
@@ -198,7 +198,7 @@ while run:
         pygame.display.flip()
         clock.tick(60)
 
-    #quits pygame when necessary 
+    #quits pygame when necessary (person exits game via x button)
     if event.type == pygame.QUIT:
         run = False
         finishGame = True
@@ -234,6 +234,7 @@ while run:
                 if pygame.key.get_pressed()[pygame.K_SPACE]:
                     finishGame = True
                     run = False
+            #breaks loop if player exits via x button
                 if event.type == pygame.QUIT:
                     finishGame = True
 
