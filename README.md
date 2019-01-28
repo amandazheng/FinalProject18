@@ -20,5 +20,7 @@ llpllp5027, et al. “PyGame-Character Goes Off Screen.” Stack Overflow, stack
 Other Links:
 https://drive.google.com/open?id=1GNJviGtKAuoY1uMtLrFsqX3hHmHZnKJ5IoX4gkqXZhk
 Link to the Google Slides presentation
+https://drive.google.com/file/d/1kOuBarxXLj9sysqsqAIs-2nfr_iZzWXM/view
+Link to the flowchart
 https://github.com/amandazheng/MagneTris/commits/master
 The initial commits were located in a separate repository we made, so you may not be able to find them in the final project repository. We have linked the initial repository above in case you would like to view them. Sorry for any inconvenience! :(
